@@ -7,12 +7,14 @@
 <meta name="description" content="Дизайн-студия MEMORA создаёт персональные журналы, фотокниги и Travel Book под ключ в Уфе. Индивидуальный дизайн с нуля, печать и доставка. От 4900 рублей.">
 <meta name="keywords" content="фотокнига на заказ уфа, персональный журнал на заказ уфа, travel book на заказ уфа, фотокнига с индивидуальным дизайном уфа, журнал в подарок уфа, фотоальбом на заказ уфа, фотокнига под ключ уфа">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://by-memora.ru/">
+<link rel="canonical" href="https://memora-studio.ru/">
 <meta property="og:title" content="MEMORA — Персональные журналы и фотокниги на заказ в Уфе">
 <meta property="og:description" content="Индивидуальный дизайн с нуля, печать и доставка. Под ключ.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"MEMORA","description":"Дизайн-студия персональных журналов, фотокниг и Travel Book на заказ под ключ","address":{"@type":"PostalAddress","addressLocality":"Уфа","addressCountry":"RU"},"email":"to-memora@mail.ru","url":"https://by-memora.ru","priceRange":"от 4 900 ₽","serviceArea":"Уфа и вся Россия"}</script>
+<meta property="og:url" content="https://memora-studio.ru/">
+<meta property="og:image" content="https://memora-studio.ru/LOGO_brand_site.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"MEMORA","description":"Дизайн-студия персональных журналов, фотокниг и Travel Book на заказ под ключ","address":{"@type":"PostalAddress","addressLocality":"Уфа","addressCountry":"RU"},"email":"to-memora@mail.ru","url":"https://memora-studio.ru","priceRange":"от 4 900 ₽","serviceArea":"Уфа и вся Россия"}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1195,14 +1197,8 @@ function closeLightbox(){
 }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
 
-// ── FORM → TELEGRAM ──
-// ИНСТРУКЦИЯ:
-// 1. Откройте @BotFather в Telegram → /newbot → получите BOT_TOKEN
-// 2. Напишите своему боту любое сообщение
-// 3. Откройте: https://api.telegram.org/bot[BOT_TOKEN]/getUpdates — скопируйте "id" из "chat"
-// 4. Вставьте значения в строки ниже
-const BOT_TOKEN = 'ВСТАВЬТЕ_ВАШ_BOT_TOKEN'; // ← заменить
-const CHAT_ID   = '7730129394'; 
+// ── FORM → CLOUDFLARE WORKER → TELEGRAM ──
+const WORKER_URL = 'https://memora-form.arkadytut.workers.dev';
 
 async function submitForm() {
   const name    = document.getElementById('fname').value.trim();
@@ -1212,14 +1208,12 @@ async function submitForm() {
   if(!name || !contact){ alert('Пожалуйста, укажите имя и контакт для связи'); return; }
   const btn = document.getElementById('submitBtn');
   btn.textContent='Отправляем...'; btn.disabled=true;
-  const text = `🎨 <b>Новая заявка MEMORA</b>\n\n👤 <b>Имя:</b> ${name}\n📱 <b>Контакт:</b> ${contact}\n📖 <b>Тип:</b> ${type||'не указан'}\n💬 <b>Сообщение:</b> ${msg||'не указано'}`;
   try {
-    if(BOT_TOKEN !== 'ВСТАВЬТЕ_ВАШ_BOT_TOKEN'){
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({chat_id:CHAT_ID, text, parse_mode:'HTML'})
-      });
-    }
+    await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ name, contact, type, msg })
+    });
   } catch(e){}
   document.getElementById('formBody').style.display='none';
   document.getElementById('formSuccess').style.display='block';
