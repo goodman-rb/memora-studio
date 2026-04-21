@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEMORA — Персональные журналы и фотокниги на заказ в Уфе</title>
+<meta name="description" content="Дизайн-студия MEMORA создаёт персональные журналы, фотокниги и Travel Book под ключ в Уфе. Индивидуальный дизайн с нуля, печать и доставка. От 4900 рублей.">
+<meta name="keywords" content="фотокнига на заказ уфа, персональный журнал на заказ уфа, travel book на заказ уфа, фотокнига с индивидуальным дизайном уфа, журнал в подарок уфа, фотоальбом на заказ уфа, фотокнига под ключ уфа">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://by-memora.ru/">
+<meta property="og:title" content="MEMORA — Персональные журналы и фотокниги на заказ в Уфе">
+<meta property="og:description" content="Индивидуальный дизайн с нуля, печать и доставка. Под ключ.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"MEMORA","description":"Дизайн-студия персональных журналов, фотокниг и Travel Book на заказ под ключ","address":{"@type":"PostalAddress","addressLocality":"Уфа","addressCountry":"RU"},"email":"to-memora@mail.ru","url":"https://by-memora.ru","priceRange":"от 4 900 ₽","serviceArea":"Уфа и вся Россия"}</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --gold: #C4973A;
+  --gold-light: #D4AA5A;
+  --gold-dark: #9A7220;
+  --gold-pale: #F0E4C4;
+  --cream: #FDFAF4;
+  --warm-gray: #F5F0E8;
+  --text-dark: #1E1810;
+  --text-mid: #4A3C28;
+  --text-light: #7A6A52;
+  --white: #FFFFFF;
+  --border: rgba(196,151,58,0.2);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:18px; }
+body { background:var(--cream); color:var(--text-dark); font-family:'Cormorant Garamond',serif; overflow-x:hidden; line-height:1.7; }
+
+/* ── KEYFRAME ANIMATIONS ── */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+@keyframes float    { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-14px); } }
+@keyframes shimmer  { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+@keyframes slideRight { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+@keyframes rotateSlow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+@keyframes pulse    { 0%,100% { box-shadow:0 0 0 0 rgba(196,151,58,0.3); } 50% { box-shadow:0 0 0 14px rgba(196,151,58,0); } }
+@keyframes countUp  { from { opacity:0; transform:scale(.8); } to { opacity:1; transform:scale(1); } }
+@keyframes gradShift{ 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+/* ── UTILS ── */
+.gold-text {
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  animation: gradShift 4s ease infinite;
+}
+.eyebrow {
+  font-family:'Montserrat',sans-serif; font-size:11px; font-weight:600;
+  letter-spacing:0.32em; text-transform:uppercase; color:var(--gold);
+  display:flex; align-items:center; gap:14px; margin-bottom:18px;
+}
+.eyebrow::before { content:''; width:32px; height:1.5px; background:var(--gold); flex-shrink:0; }
+.sec-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(34px,4vw,56px); font-weight:700; line-height:1.12;
+  color:var(--text-dark); margin-bottom:16px;
+}
+.sec-title em { font-style:italic; }
+.sec-sub { font-size:1.1rem; color:var(--text-mid); line-height:1.75; }
+
+/* ── CURSOR ── */
+.cursor { position:fixed; width:10px; height:10px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s; mix-blend-mode:multiply; }
+.cursor-ring { position:fixed; width:34px; height:34px; border:1.5px solid var(--gold); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s; opacity:.5; }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; width:100%; z-index:200;
+  background:rgba(253,250,244,0.95); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 5%; height:76px;
+  display:flex; align-items:center; justify-content:space-between;
+  transition:box-shadow .3s;
+}
+nav.scrolled { box-shadow:0 4px 30px rgba(44,36,22,0.08); }
+.nav-logo { height:48px; width:auto; display:block; }
+.nav-links { display:flex; gap:36px; list-style:none; }
+.nav-links a {
+  font-family:'Montserrat',sans-serif; font-size:11px; font-weight:500;
+  letter-spacing:0.18em; text-transform:uppercase; color:var(--text-mid);
+  text-decoration:none; position:relative; padding-bottom:4px; transition:color .3s;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:0; left:0; width:100%; height:1.5px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left;
+  transition:transform .35s ease;
+}
+.nav-links a:hover { color:var(--gold); }
+.nav-links a:hover::after { transform:scaleX(1); }
+.nav-cta {
+  font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  background:linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+  color:#fff; padding:13px 28px; border-radius:2px; text-decoration:none; display:inline-block;
+  box-shadow:0 4px 20px rgba(196,151,58,0.3); transition:transform .25s,box-shadow .25s,opacity .25s;
+}
+.nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(196,151,58,0.45); opacity:.92; }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh; padding-top:76px;
+  display:grid; grid-template-columns:1fr 1fr;
+  position:relative; overflow:hidden;
+  background: radial-gradient(ellipse 70% 80% at 75% 40%, rgba(196,151,58,0.07) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 50% at 10% 90%, rgba(196,151,58,0.04) 0%, transparent 60%);
+}
+/* Decorative grain */
+.hero::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+.hero-left {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:80px 5% 80px 6%; position:relative; z-index:2;
+}
+.hero-kicker {
+  font-family:'Montserrat',sans-serif; font-size:11px; font-weight:600;
+  letter-spacing:0.32em; text-transform:uppercase; color:var(--gold);
+  display:flex; align-items:center; gap:12px; margin-bottom:32px;
+  animation: fadeUp .8s ease both;
+}
+.hero-kicker::before { content:''; width:32px; height:1.5px; background:var(--gold); }
+.hero-h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,5vw,74px); font-weight:700; line-height:1.08;
+  margin-bottom:28px;
+  animation: fadeUp .8s .15s ease both;
+}
+.hero-h1 em { font-style:italic; }
+.hero-desc {
+  font-size:1.2rem; font-weight:400; line-height:1.8; color:var(--text-mid);
+  max-width:440px; margin-bottom:24px;
+  animation: fadeUp .8s .25s ease both;
+}
+.hero-diff {
+  font-family:'Montserrat',sans-serif; font-size:13px; font-weight:400;
+  color:var(--text-mid); letter-spacing:0.04em; margin-bottom:48px;
+  padding:20px 20px 20px 22px; border-left:3px solid var(--gold);
+  background:rgba(196,151,58,0.06); border-radius:0 4px 4px 0;
+  line-height:2; animation: fadeUp .8s .35s ease both;
+}
+.hero-diff span { display:block; }
+.hero-diff span::before { content:'✦ '; color:var(--gold); font-size:10px; }
+.hero-actions { display:flex; align-items:center; gap:28px; flex-wrap:wrap; animation: fadeUp .8s .45s ease both; }
+.btn-primary {
+  font-family:'Montserrat',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+  background:linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+  color:#fff; padding:18px 44px; border-radius:2px; text-decoration:none; display:inline-block;
+  box-shadow:0 8px 28px rgba(196,151,58,0.32); transition:transform .25s,box-shadow .25s;
+  animation: pulse 3s 1.5s ease infinite;
+}
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 16px 44px rgba(196,151,58,0.45); }
+.btn-ghost {
+  font-family:'Montserrat',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--gold); text-decoration:none; display:flex; align-items:center; gap:10px; transition:gap .3s;
+}
+.btn-ghost:hover { gap:18px; }
+.btn-ghost::after { content:'→'; font-size:16px; }
+
+.hero-right { display:flex; align-items:center; justify-content:center; padding:60px 5% 60px 20px; position:relative; }
+.hero-visual {
+  width:100%; max-width:460px; aspect-ratio:3/4;
+  background:var(--warm-gray); border-radius:4px; overflow:hidden;
+  box-shadow:28px 28px 70px rgba(44,36,22,0.16), -4px -4px 20px rgba(255,255,255,0.8);
+  animation:float 6s ease-in-out infinite;
+  position:relative;
+}
+.hero-visual img { width:100%; height:100%; object-fit:cover; }
+.hero-visual-ph {
+  width:100%; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:14px; color:var(--text-light);
+}
+.hero-visual-ph p { font-size:14px; font-style:italic; text-align:center; padding:0 24px; opacity:.7; }
+.hero-badge {
+  position:absolute; bottom:-18px; left:-24px;
+  background:var(--white); border:1px solid var(--border);
+  padding:14px 22px; border-radius:3px;
+  box-shadow:0 10px 32px rgba(44,36,22,0.12);
+  animation:countUp .8s .8s ease both;
+}
+.hero-badge-label { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-light); }
+.hero-badge-value { font-size:26px; font-weight:700; font-family:'Playfair Display',serif; }
+
+/* ── STATS ── */
+.stats { background:var(--text-dark); padding:52px 6%; }
+.stats-inner { max-width:900px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+.stat { text-align:center; }
+.stat-num {
+  font-family:'Playfair Display',serif; font-size:clamp(44px,5vw,64px); font-weight:700;
+  line-height:1; margin-bottom:8px;
+  background:linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+  background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  animation:gradShift 3s ease infinite;
+}
+.stat-label { font-family:'Montserrat',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(253,250,244,0.55); }
+
+/* ── DIFFERENTIATOR ── */
+.diff-section { background:var(--text-dark); padding:88px 6% 96px; }
+.diff-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1.1fr; gap:72px; align-items:center; }
+.diff-left .eyebrow { color:var(--gold-light); }
+.diff-left .eyebrow::before { background:var(--gold-light); }
+.diff-left h2 { font-family:'Playfair Display',serif; font-size:clamp(30px,3.8vw,48px); font-weight:700; line-height:1.18; color:var(--cream); margin-bottom:20px; }
+.diff-left h2 em { font-style:italic; color:var(--gold-light); -webkit-text-fill-color:var(--gold-light); }
+.diff-left p { font-size:1.1rem; color:rgba(253,250,244,0.72); line-height:1.8; }
+
+.diff-table { border:1px solid rgba(255,255,255,0.1); border-radius:4px; overflow:hidden; }
+.diff-row { display:grid; grid-template-columns:1fr 1fr; }
+.diff-row:not(:last-child) { border-bottom:1px solid rgba(255,255,255,0.08); }
+.diff-col { padding:20px 24px; }
+.diff-col:first-child { border-right:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02); }
+.diff-col:last-child { background:rgba(196,151,58,0.08); }
+.diff-col-head { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; margin-bottom:14px; }
+.diff-col:first-child .diff-col-head { color:rgba(255,255,255,0.3); }
+.diff-col:last-child .diff-col-head { color:var(--gold-light); }
+.diff-item { display:flex; align-items:flex-start; gap:10px; font-size:1rem; color:rgba(255,255,255,0.55); line-height:1.5; margin-bottom:12px; font-family:'Montserrat',sans-serif; font-weight:400; }
+.diff-item-good { color:rgba(253,250,244,0.9); }
+.diff-item .di { flex-shrink:0; margin-top:1px; font-size:13px; }
+
+/* ── PRODUCTS ── */
+.products { padding:96px 6%; background:var(--cream); }
+.products-header { max-width:600px; margin:0 auto 64px; text-align:center; }
+.products-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.product-card {
+  border:1px solid var(--border); border-radius:4px; overflow:hidden;
+  transition:transform .4s ease, box-shadow .4s ease, border-color .4s;
+  background:var(--white); cursor:default;
+}
+.product-card:hover {
+  transform:translateY(-10px);
+  box-shadow:0 24px 60px rgba(44,36,22,0.14);
+  border-color:var(--gold);
+}
+.product-img { width:100%; aspect-ratio:4/3; background:var(--warm-gray); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:var(--text-light); overflow:hidden; position:relative; }
+.product-img img { width:100%; height:100%; object-fit:cover; object-position: center bottom; transition:transform .5s ease; }
+.product-card:hover .product-img img { transform:scale(1.05); }
+.product-img-ph { text-align:center; padding:20px; }
+.product-img-ph p { font-size:13px; font-style:italic; margin-top:8px; opacity:.6; }
+.product-body { padding:28px 26px 32px; }
+.product-tag { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+.product-name { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; margin-bottom:12px; line-height:1.2; }
+.product-desc { font-size:1rem; color:var(--text-mid); line-height:1.72; margin-bottom:20px; }
+.product-price { font-family:'Montserrat',sans-serif; font-size:14px; font-weight:700; color:var(--gold); letter-spacing:0.06em; }
+
+/* ── PROCESS ── */
+.process { background:var(--warm-gray); padding:96px 6%; }
+.process-inner { max-width:1100px; margin:0 auto; }
+.process-header { max-width:540px; margin:0 auto 72px; text-align:center; }
+.process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative; }
+.process-line {
+  position:absolute; top:36px; left:12%; right:12%; height:1px;
+  background:linear-gradient(to right, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+  opacity:.35;
+}
+.process-line-fill {
+  position:absolute; top:36px; left:12%; height:1px; width:0;
+  background:var(--gold); transition:width 1.5s ease; opacity:.7;
+}
+.process-step { padding:0 20px; text-align:center; position:relative; }
+.step-num {
+  width:72px; height:72px; border-radius:50%;
+  border:1.5px solid var(--gold); background:var(--cream);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:400; font-style:italic; color:var(--gold);
+  margin:0 auto 24px; position:relative; z-index:1;
+  transition:background .3s, transform .3s;
+}
+.process-step:hover .step-num { background:var(--gold); color:#fff; transform:scale(1.1); }
+.step-title { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:600; margin-bottom:12px; }
+.step-desc { font-size:0.95rem; color:var(--text-mid); line-height:1.72; }
+
+/* ── GALLERY ── */
+.gallery { padding:96px 6%; background:var(--cream); }
+.gallery-header { max-width:540px; margin:0 auto 56px; text-align:center; }
+.gallery-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto auto; gap:18px; }
+.gallery-item {
+  background:var(--warm-gray); border-radius:3px; overflow:hidden;
+  position:relative; cursor:pointer; transition:transform .4s ease, box-shadow .4s;
+}
+.gallery-item:hover { transform:scale(1.025); box-shadow:0 16px 44px rgba(44,36,22,0.14); }
+.gallery-item:nth-child(1) { grid-column:1/2; grid-row:1/2; aspect-ratio:4/5; }
+.gallery-item:nth-child(2) { grid-column:2/4; grid-row:1/2; aspect-ratio:2/1.2; }
+.gallery-item:nth-child(3) { grid-column:1/3; grid-row:2/3; aspect-ratio:2/1.2; }
+.gallery-item:nth-child(4) { grid-column:3/4; grid-row:2/3; aspect-ratio:4/5; }
+.gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.gallery-item:hover img { transform:scale(1.06); }
+.gallery-ph { width:100%; height:100%; min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:var(--text-light); padding:20px; text-align:center; }
+.gallery-ph p { font-size:13px; font-style:italic; opacity:.6; }
+.gallery-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(30,24,16,0.6) 0%, transparent 50%);
+  opacity:0; transition:opacity .4s;
+}
+.gallery-item:hover .gallery-overlay { opacity:1; }
+.gallery-label {
+  position:absolute; bottom:16px; left:16px;
+  background:rgba(253,250,244,0.94); backdrop-filter:blur(8px);
+  padding:6px 14px; border-radius:2px;
+  font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-mid);
+  transform:translateY(4px); transition:transform .3s;
+}
+.gallery-item:hover .gallery-label { transform:translateY(0); }
+
+/* ── VIDEO SLIDER ── */
+.video-slider-section { padding:80px 6% 96px; background:var(--warm-gray); }
+.video-slider-header { max-width:540px; margin:0 auto 56px; text-align:center; }
+
+.vslider-wrap { max-width:1100px; margin:0 auto; position:relative; }
+
+.vslider-track-outer { overflow:hidden; border-radius:4px; }
+.vslider-track {
+  display:flex; gap:24px;
+  transition:transform .55s cubic-bezier(.4,0,.2,1);
+}
+
+.vslide {
+  flex:0 0 calc((100% - 48px) / 3);
+  border-radius:4px; overflow:hidden;
+  background:var(--text-dark);
+  position:relative;
+  box-shadow:0 8px 30px rgba(44,36,22,0.14);
+  transition:transform .35s, box-shadow .35s;
+}
+.vslide:hover { transform:translateY(-6px); box-shadow:0 18px 44px rgba(44,36,22,0.2); }
+
+.vslide video {
+  width:100%; aspect-ratio:9/16; object-fit:cover;
+  display:block; background:#000;
+}
+.vslide-ph {
+  width:100%; aspect-ratio:9/16;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:14px; color:rgba(255,255,255,0.3); background:#1a140d;
+}
+.vslide-ph p { font-size:13px; font-style:italic; text-align:center; padding:0 16px; }
+
+.vslide-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(30,24,16,0.72) 0%, transparent 45%);
+  pointer-events:none;
+}
+.vslide-play {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:56px; height:56px; border-radius:50%;
+  background:rgba(196,151,58,0.85); border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .3s, transform .3s; pointer-events:auto;
+}
+.vslide-play:hover { background:var(--gold); transform:translate(-50%,-50%) scale(1.1); }
+.vslide-play svg { margin-left:3px; }
+.vslide-label {
+  position:absolute; bottom:16px; left:16px; right:16px;
+  font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:0.18em;
+  text-transform:uppercase; color:rgba(253,250,244,0.85);
+}
+
+/* nav arrows */
+.vslider-btn {
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:48px; height:48px; border-radius:50%;
+  background:var(--cream); border:1.5px solid var(--border);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 16px rgba(44,36,22,0.12);
+  transition:background .3s, border-color .3s, transform .2s;
+  z-index:10; color:var(--text-dark);
+}
+.vslider-btn:hover { background:var(--gold); border-color:var(--gold); color:#fff; transform:translateY(-50%) scale(1.08); }
+.vslider-prev { left:-28px; }
+.vslider-next { right:-28px; }
+.vslider-btn:disabled { opacity:.3; cursor:default; }
+.vslider-btn:disabled:hover { background:var(--cream); border-color:var(--border); color:var(--text-dark); transform:translateY(-50%); }
+
+/* dots */
+.vslider-dots { display:flex; justify-content:center; gap:8px; margin-top:32px; }
+.vdot {
+  width:8px; height:8px; border-radius:50%;
+  background:rgba(196,151,58,0.25); border:none; cursor:pointer;
+  transition:background .3s, transform .3s; padding:0;
+}
+.vdot.active { background:var(--gold); transform:scale(1.3); }
+
+/* lightbox */
+.vlightbox {
+  display:none; position:fixed; inset:0; z-index:1000;
+  background:rgba(20,15,10,0.94); backdrop-filter:blur(12px);
+  align-items:center; justify-content:center;
+}
+.vlightbox.open { display:flex; }
+.vlightbox-inner { position:relative; max-width:420px; width:92vw; }
+.vlightbox-inner video { width:100%; border-radius:6px; max-height:85vh; }
+.vlightbox-close {
+  position:absolute; top:-44px; right:0;
+  background:none; border:none; color:#fff; cursor:pointer;
+  font-size:28px; line-height:1; opacity:.7; transition:opacity .2s;
+}
+.vlightbox-close:hover { opacity:1; }
+
+@media(max-width:900px){
+  .vslide { flex:0 0 calc((100% - 20px) / 2); }
+  .vslider-prev { left:-14px; }
+  .vslider-next { right:-14px; }
+}
+@media(max-width:560px){
+  .vslide { flex:0 0 85%; }
+}
+
+/* ── PRICING ── */
+.pricing { padding:96px 6%; background:var(--warm-gray); }
+.pricing-header { max-width:560px; margin:0 auto 64px; text-align:center; }
+.pricing-note { font-size:1rem; color:var(--text-mid); font-style:italic; margin-top:10px; }
+.pricing-grid { max-width:980px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.pricing-card {
+  background:var(--white); border:1px solid var(--border); border-radius:4px;
+  padding:40px 30px; position:relative;
+  transition:transform .4s, box-shadow .4s, border-color .3s;
+}
+.pricing-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(44,36,22,0.12); border-color:var(--gold); }
+.pricing-card.featured {
+  background:linear-gradient(160deg, #2C2416 0%, #3D3220 100%);
+  border-color:transparent;
+  box-shadow:0 18px 54px rgba(44,36,22,0.28);
+}
+.pricing-card.featured:hover { transform:translateY(-8px); }
+.featured-badge {
+  position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+  background:linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+  color:#fff; font-family:'Montserrat',sans-serif; font-size:9px;
+  letter-spacing:0.22em; text-transform:uppercase; padding:5px 18px; border-radius:12px;
+  white-space:nowrap;
+}
+.pricing-name { font-family:'Montserrat',sans-serif; font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+.pricing-card.featured .pricing-name { color:var(--gold-light); }
+.pricing-price { font-family:'Playfair Display',serif; font-size:52px; font-weight:700; line-height:1; margin-bottom:6px; }
+.pricing-card.featured .pricing-price { color:var(--cream); }
+.pricing-period { font-size:1rem; color:var(--text-light); font-style:italic; margin-bottom:32px; }
+.pricing-card.featured .pricing-period { color:rgba(253,250,244,0.5); }
+.pricing-features { list-style:none; margin-bottom:36px; }
+.pricing-features li {
+  font-size:1rem; color:var(--text-mid); padding:10px 0;
+  border-bottom:1px solid var(--border);
+  display:flex; gap:12px; align-items:flex-start; line-height:1.5;
+  font-family:'Cormorant Garamond',serif;
+}
+.pricing-card.featured .pricing-features li { color:rgba(253,250,244,0.8); border-color:rgba(255,255,255,0.08); }
+.pricing-features li::before { content:'—'; color:var(--gold); font-size:13px; flex-shrink:0; margin-top:1px; }
+.pricing-cta {
+  display:block; text-align:center; padding:16px;
+  font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+  border:1.5px solid var(--gold); color:var(--gold); text-decoration:none;
+  border-radius:2px; transition:all .3s;
+}
+.pricing-cta:hover { background:var(--gold); color:#fff; }
+.pricing-card.featured .pricing-cta {
+  background:linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+  border-color:transparent; color:#fff;
+  box-shadow:0 6px 20px rgba(196,151,58,0.35);
+}
+.pricing-card.featured .pricing-cta:hover { opacity:.88; }
+
+/* ── REVIEWS ── */
+.reviews { padding:96px 6%; background:var(--cream); }
+.reviews-header { max-width:540px; margin:0 auto 56px; text-align:center; }
+.reviews-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.review-card {
+  background:var(--white); border:1px solid var(--border); border-radius:4px; padding:32px 28px;
+  transition:transform .3s, box-shadow .3s;
+}
+.review-card:hover { transform:translateY(-4px); box-shadow:0 14px 38px rgba(44,36,22,0.08); }
+.review-stars { color:var(--gold); font-size:15px; letter-spacing:4px; margin-bottom:16px; }
+.review-text { font-size:1.05rem; color:var(--text-mid); line-height:1.75; margin-bottom:22px; font-style:italic; }
+.review-author { display:flex; align-items:center; gap:14px; }
+.review-avatar { width:42px; height:42px; border-radius:50%; background:var(--warm-gray); border:1.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:18px; color:var(--gold); }
+.review-name { font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; }
+.review-meta { font-size:13px; color:var(--text-light); font-style:italic; margin-top:2px; }
+.reviews-note { max-width:640px; margin:44px auto 0; text-align:center; font-size:14px; color:var(--text-light); font-style:italic; line-height:1.7; padding:22px 24px; border:1.5px dashed var(--border); border-radius:3px; }
+
+/* ── CONTACT ── */
+.contact { padding:96px 6%; background:var(--text-dark); }
+.contact-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.contact-left .eyebrow { color:var(--gold-light); }
+.contact-left .eyebrow::before { background:var(--gold-light); }
+.contact-left h2 { font-family:'Playfair Display',serif; font-size:clamp(30px,3.8vw,48px); font-weight:700; color:var(--cream); line-height:1.18; margin-bottom:22px; }
+.contact-left h2 em { font-style:italic; color:var(--gold-light); -webkit-text-fill-color:var(--gold-light); }
+.contact-desc { font-size:1.1rem; color:rgba(253,250,244,0.65); line-height:1.8; margin-bottom:44px; }
+.contact-channels { display:flex; flex-direction:column; gap:18px; }
+.contact-ch { display:flex; align-items:center; gap:16px; color:rgba(253,250,244,0.8); text-decoration:none; font-size:1.05rem; transition:color .3s; }
+.contact-ch:hover { color:var(--gold-light); }
+.contact-ch-icon { width:44px; height:44px; border-radius:3px; border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:border-color .3s; }
+.contact-ch:hover .contact-ch-icon { border-color:var(--gold); }
+.contact-ch-label { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.3); display:block; margin-bottom:2px; }
+.tg-btn {
+  margin-top:36px; display:inline-flex; align-items:center; gap:12px;
+  background:linear-gradient(135deg, #29A8EB, #1a85bb);
+  color:#fff; padding:18px 32px; border-radius:2px; text-decoration:none;
+  font-family:'Montserrat',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+  box-shadow:0 6px 24px rgba(41,168,235,0.3); transition:transform .25s,opacity .25s,box-shadow .25s;
+}
+.tg-btn:hover { opacity:.92; transform:translateY(-2px); box-shadow:0 12px 34px rgba(41,168,235,0.4); }
+
+.contact-form { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:40px 36px; }
+.form-title { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--cream); margin-bottom:6px; }
+.form-sub { font-size:14px; color:rgba(255,255,255,0.38); font-style:italic; margin-bottom:30px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.form-group { margin-bottom:18px; }
+.form-label { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.38); display:block; margin-bottom:8px; }
+.form-input,.form-select,.form-textarea {
+  width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+  border-radius:3px; padding:13px 16px; color:var(--cream);
+  font-family:'Cormorant Garamond',serif; font-size:1.05rem;
+  outline:none; transition:border-color .3s, background .3s;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus { border-color:rgba(196,151,58,0.55); background:rgba(255,255,255,0.09); }
+.form-input::placeholder,.form-textarea::placeholder { color:rgba(255,255,255,0.2); }
+.form-select { color:rgba(255,255,255,0.65); }
+.form-select option { background:#2C2416; color:var(--cream); }
+.form-textarea { resize:vertical; min-height:110px; }
+.form-submit {
+  width:100%; margin-top:10px; padding:18px;
+  background:linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+  color:#fff; border:none; border-radius:2px; cursor:pointer;
+  font-family:'Montserrat',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+  transition:opacity .3s,transform .2s; box-shadow:0 6px 22px rgba(196,151,58,0.28);
+}
+.form-submit:hover { opacity:.88; transform:translateY(-2px); }
+.form-submit:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+.form-note { font-size:12px; color:rgba(255,255,255,0.22); text-align:center; margin-top:12px; font-style:italic; }
+#formSuccess { display:none; text-align:center; padding:30px 10px; }
+#formSuccess h3 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--cream); margin-bottom:12px; }
+#formSuccess p { font-size:1rem; color:rgba(255,255,255,0.55); font-style:italic; }
+
+/* ── FOOTER ── */
+footer { background:#140F0A; padding:56px 6% 28px; }
+.footer-top { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:56px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:24px; }
+.footer-logo { height:40px; width:auto; margin-bottom:14px; opacity:.85; }
+.footer-tagline { font-size:15px; font-style:italic; color:var(--gold-light); margin-bottom:16px; }
+.footer-about { font-size:14px; color:rgba(255,255,255,0.32); line-height:1.75; }
+.footer-col-title { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:0.28em; text-transform:uppercase; color:rgba(255,255,255,0.28); margin-bottom:18px; }
+.footer-links { display:flex; flex-direction:column; gap:12px; }
+.footer-links a { font-size:14px; color:rgba(255,255,255,0.46); text-decoration:none; transition:color .3s; }
+.footer-links a:hover { color:var(--gold-light); }
+.footer-bottom { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+.footer-copy { font-size:13px; color:rgba(255,255,255,0.2); font-style:italic; }
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal { opacity:0; transform:translateY(36px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity:1; transform:none; }
+.reveal-d1 { transition-delay:.1s; }
+.reveal-d2 { transition-delay:.22s; }
+.reveal-d3 { transition-delay:.34s; }
+.reveal-scale { opacity:0; transform:scale(.94); transition:opacity .6s ease, transform .6s ease; }
+.reveal-scale.visible { opacity:1; transform:scale(1); }
+
+/* ── MOBILE ── */
+@media(max-width:960px){
+  .hero { grid-template-columns:1fr; }
+  .hero-right { display:none; }
+  .hero-left { padding:60px 5%; }
+  .diff-inner,.contact-inner { grid-template-columns:1fr; gap:48px; }
+  .products-grid,.pricing-grid,.reviews-grid { grid-template-columns:1fr; }
+  .process-steps { grid-template-columns:1fr 1fr; gap:36px; }
+  .process-line,.process-line-fill { display:none; }
+  .gallery-grid { grid-template-columns:1fr 1fr; }
+  .gallery-item { grid-column:auto!important; grid-row:auto!important; aspect-ratio:4/3!important; }
+  .stats-inner { grid-template-columns:1fr; gap:24px; }
+  .footer-top { grid-template-columns:1fr; gap:32px; }
+  .nav-links { display:none; }
+  .form-row { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cring"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#">
+    <img src="LOGO_brand_site.png" alt="MEMORA" class="nav-logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Продукты</a></li>
+    <li><a href="#process">Процесс</a></li>
+    <li><a href="#pricing">Цены</a></li>
+    <li><a href="#gallery">Портфолио</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a href="https://t.me/by_memora" target="_blank" class="nav-cta">Написать в Telegram</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-kicker">Дизайн-студия · Уфа</p>
+    <h1 class="hero-h1">
+      Ваши воспоминания<br>
+      в <em>глянцевом</em><br>
+      <span class="gold-text">издании</span>
+    </h1>
+    <p class="hero-desc">Создаём персональные журналы, фотокниги и Travel Book под ключ — от концепции до печати и доставки.</p>
+    <div class="hero-diff">
+      <span>Вы присылаете фотографии и рассказываете историю</span>
+      <span>Мы разрабатываем концепцию, палитру и вёрстку</span>
+      <span>Вы получаете готовое издание с доставкой</span>
+    </div>
+    <div class="hero-actions">
+      <a href="https://t.me/by_memora" target="_blank" class="btn-primary">Написать в Telegram</a>
+      <a href="#products" class="btn-ghost">Смотреть работы</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <img src="images/main_foto.png" alt="Персональный журнал MEMORA">
+      <div class="hero-visual-ph">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat reveal">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Изданий создано</div>
+    </div>
+    <div class="stat reveal reveal-d1">
+      <div class="stat-num">7</div>
+      <div class="stat-label">Дней до готового издания</div>
+    </div>
+    <div class="stat reveal reveal-d2">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Уникальный дизайн</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATOR -->
+<section class="diff-section">
+  <div class="diff-inner">
+    <div class="diff-left reveal">
+      <p class="eyebrow">Наше отличие</p>
+      <h2>Мы делаем<br><em>всё за вас</em> —<br>под ключ</h2>
+      <p>Другие сервисы дают шаблон — делайте сами.<br>Мы берём на себя дизайн, вёрстку, текст и печать.<br>Вы просто присылаете фото.</p>
+    </div>
+    <div class="diff-table reveal reveal-d1">
+      <div class="diff-row">
+        <div class="diff-col">
+          <div class="diff-col-head">Другие сервисы</div>
+          <div class="diff-item"><span class="di">✗</span>Шаблон — выбираете сами</div>
+          <div class="diff-item"><span class="di">✗</span>Расставляете фото вручную</div>
+          <div class="diff-item"><span class="di">✗</span>Тексты и подписи сами</div>
+          <div class="diff-item"><span class="di">✗</span>Типовой результат</div>
+        </div>
+        <div class="diff-col">
+          <div class="diff-col-head">MEMORA</div>
+          <div class="diff-item diff-item-good"><span class="di">✓</span>Уникальная концепция под вашу историю</div>
+          <div class="diff-item diff-item-good"><span class="di">✓</span>Палитра, шрифты, вёрстка — всё включено</div>
+          <div class="diff-item diff-item-good"><span class="di">✓</span>Тексты и подписи пишем мы</div>
+          <div class="diff-item diff-item-good"><span class="di">✓</span>Печать и доставка под ключ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="products-header reveal">
+    <p class="eyebrow">Что создаём</p>
+    <h2 class="sec-title">Три вида <em>изданий</em></h2>
+    <p class="sec-sub">Каждое — с уникальным дизайном под вашу историю, печатью и доставкой</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card reveal">
+      <div class="product-img">
+        <img src="images/journal.jpg" alt="Персональный журнал на заказ Уфа">
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Персональный журнал</div>
+        <div class="product-name">Ваш Vogue</div>
+        <p class="product-desc">Глянцевый журнал в вашем стиле — с обложкой, рубриками, историями и фотографиями. Идеальный подарок на юбилей, день рождения или выпускной.</p>
+        <div class="product-price">от 4 500 ₽ · включая печать</div>
+      </div>
+    </div>
+
+    <div class="product-card reveal reveal-d1">
+      <div class="product-img">
+       <img src="images/photobook.jpg" alt="Фотокнига на заказ Уфа">
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Фотокнига</div>
+        <div class="product-name">История в кадрах</div>
+        <p class="product-desc">Семейная история, свадьба, беременность, детские годы или фотосессии — всё ценное в красивой книге. Мягкая или твёрдая обложка — на ваш выбор.</p>
+        <div class="product-price">от 7 900 ₽ · мягкая / от 9 200 ₽ · твёрдая</div>
+      </div>
+    </div>
+
+    <div class="product-card reveal reveal-d2">
+      <div class="product-img">
+       <img src="images/travel_book.png" alt="Travel Book на заказ Уфа">
+      </div>
+      <div class="product-body">
+        <div class="product-tag">Travel Book</div>
+        <div class="product-name">Дневник путешествий</div>
+        <p class="product-desc">Атмосферная книга о вашем путешествии — с картами, маршрутом, впечатлениями и лучшими кадрами. Хранит эмоции, а не просто снимки.</p>
+        <div class="product-price">от 7 900 ₽ · мягкая / от 9 200 ₽ · твёрдая</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="process-header reveal">
+      <p class="eyebrow">Как мы работаем</p>
+      <h2 class="sec-title">Четыре шага до <em>готового издания</em></h2>
+    </div>
+    <div class="process-steps" id="processSteps">
+      <div class="process-line"></div>
+      <div class="process-line-fill" id="processLineFill"></div>
+      <div class="process-step reveal">
+        <div class="step-num">I</div>
+        <div class="step-title">Знакомство</div>
+        <p class="step-desc">Вы пишете нам в Telegram или оставляете заявку. Рассказываете о поводе и делитесь фотографиями.</p>
+      </div>
+      <div class="process-step reveal reveal-d1">
+        <div class="step-num">II</div>
+        <div class="step-title">Концепция</div>
+        <p class="step-desc">Мы разрабатываем уникальную концепцию: стиль, палитру, шрифты и план разворотов — именно под вашу историю.<br>Согласовываем концепт с Вами.</p>
+      </div>
+      <div class="process-step reveal reveal-d2">
+        <div class="step-num">III</div>
+        <div class="step-title">Дизайн</div>
+        <p class="step-desc">Создаём макет, расставляем фото, пишем подписи и тексты. Согласовываем еще раз — вносим правки до идеального результата.</p>
+      </div>
+      <div class="process-step reveal reveal-d3">
+        <div class="step-num">IV</div>
+        <div class="step-title">Печать и доставка</div>
+        <p class="step-desc">Отправляем в профессиональную типографию. Вы получаете готовое издание с доставкой по Уфе и всей России.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header reveal">
+    <p class="eyebrow">Портфолио</p>
+    <h2 class="sec-title">Наши <em>работы</em></h2>
+    <p class="sec-sub">Каждое издание — уникальный дизайн под конкретную историю</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal">
+      <img src="images/work1.png" alt="Персональный журнал Уфа MEMORA">
+      <div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><p>Ваше фото работы</p></div>
+      <div class="gallery-overlay"></div>
+      <div class="gallery-label">Персональный журнал</div>
+    </div>
+    <div class="gallery-item reveal reveal-d1">
+      <img src="images/work2.png" alt="Фотокнига на заказ Уфа">
+      <div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><p>Ваше фото работы</p></div>
+      <div class="gallery-overlay"></div>
+      <div class="gallery-label">Фотокнига</div>
+    </div>
+    <div class="gallery-item reveal reveal-d2">
+      <img src="images/work3.png" alt="Travel Book на заказ Уфа">
+      <div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><p>Ваше фото работы</p></div>
+      <div class="gallery-overlay"></div>
+      <div class="gallery-label">Travel Book</div>
+    </div>
+    <div class="gallery-item reveal reveal-d3">
+      <img src="images/work4.png" alt="Свадебный альбом Уфа">
+      <div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><p>Ваше фото работы</p></div>
+      <div class="gallery-overlay"></div>
+      <div class="gallery-label">Свадебный альбом</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SLIDER -->
+<section class="video-slider-section">
+  <div class="video-slider-header reveal">
+    <p class="eyebrow">Видео</p>
+    <h2 class="sec-title">Посмотрите <em>вживую</em></h2>
+    <p class="sec-sub">Листайте страницы вместе с нами — в реальных руках, при живом свете</p>
+  </div>
+
+  <div class="vslider-wrap reveal">
+    <button class="vslider-btn vslider-prev" id="vPrev" aria-label="Предыдущее">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <div class="vslider-track-outer">
+      <div class="vslider-track" id="vTrack">
+
+        <!-- СЛАЙД 1 → замените src="videos/video1.mp4" на ваш файл -->
+        <div class="vslide">
+          <video src="videos/Magazine.mp4" loop muted playsinline preload="metadata"></video>
+          <div class="vslide-overlay"></div>
+          <button class="vslide-play" onclick="openVideo('videos/Magazine.mp4')" aria-label="Смотреть">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+          <div class="vslide-label">Персональный журнал</div>
+        </div>
+
+        <!-- СЛАЙД 2 -->
+        <div class="vslide">
+          <video src="videos/travel_book.mp4" loop muted playsinline preload="metadata"></video>
+          <div class="vslide-overlay"></div>
+          <button class="vslide-play" onclick="openVideo('videos/travel_book.mp4')" aria-label="Смотреть">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+          <div class="vslide-label">Travel Book</div>
+        </div>
+
+        <!-- СЛАЙД 3 -->
+        <div class="vslide">
+          <video src="videos/Photobook.mp4" loop muted playsinline preload="metadata"></video>
+          <div class="vslide-overlay"></div>
+          <button class="vslide-play" onclick="openVideo('videos/Photobook.mp4')" aria-label="Смотреть">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+          <div class="vslide-label">Фотокнига · твёрдая обложка</div>
+        </div>
+
+        <!-- СЛАЙД 4 -->
+        <div class="vslide">
+          <video src="videos/reel.mp4" loop muted playsinline preload="metadata"></video>
+          <div class="vslide-overlay"></div>
+          <button class="vslide-play" onclick="openVideo('videos/reel.mp4')" aria-label="Смотреть">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+          <div class="vslide-label">STORY</div>
+        </div>
+
+
+      </div><!-- /vslider-track -->
+    </div><!-- /vslider-track-outer -->
+
+    <button class="vslider-btn vslider-next" id="vNext" aria-label="Следующее">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div><!-- /vslider-wrap -->
+
+  <div class="vslider-dots" id="vDots"></div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="vlightbox" id="vLightbox" onclick="closeVideo(event)">
+  <div class="vlightbox-inner">
+    <button class="vlightbox-close" onclick="closeLightbox()">✕</button>
+    <video id="vLightboxVideo" controls playsinline style="width:100%;border-radius:6px;max-height:85vh;"></video>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header reveal">
+    <p class="eyebrow">Стоимость</p>
+    <h2 class="sec-title">Цена под <em>ключ</em></h2>
+    <p class="pricing-note">Включает дизайн, вёрстку, все тексты, печать.<br>Доставка по России расчитывается отдельно</p>
+  </div>
+  <div class="pricing-grid">
+
+    <div class="pricing-card reveal">
+      <div class="pricing-name">Фотокнига</div>
+      <div class="pricing-price gold-text">9 200</div>
+      <div class="pricing-period">₽ · мягкая обложка · за 40 страниц книги</div>
+      <ul class="pricing-features">
+        <li>Индивидуальная концепция</li>
+        <li>Подбор палитры и шрифтов</li>
+        <li>Вёрстка от 20 разворотов</li>
+        <li>Подписи к фотографиям</li>
+        <li>Твёрдая обложка, печать</li>
+        <li>2 раунда правок</li>
+      </ul>
+      <a href="https://t.me/by_memora" target="_blank" class="pricing-cta">Заказать</a>
+    </div>
+
+    <div class="pricing-card featured reveal reveal-d1">
+      <div class="featured-badge">Популярный</div>
+      <div class="pricing-name">Персональный журнал</div>
+      <div class="pricing-price">4 900</div>
+      <div class="pricing-period">₽ · за 20 страниц журнала · под ключ</div>
+      <ul class="pricing-features">
+        <li>Уникальная концепция журнала</li>
+        <li>Дизайн обложки и рубрик</li>
+        <li>Вёрстка от 16 страниц</li>
+        <li>Сюжетные тексты к разворотам</li>
+        <li>Глянцевая печать</li>
+        <li>2 раунда правок</li>
+      </ul>
+      <a href="https://t.me/by_memora" target="_blank" class="pricing-cta">Заказать</a>
+    </div>
+
+    <div class="pricing-card reveal reveal-d2">
+      <div class="pricing-name">Travel Book</div>
+      <div class="pricing-price gold-text">7 900</div>
+      <div class="pricing-period">₽ · за 40 страниц журнала · под ключ</div>
+      <ul class="pricing-features">
+        <li>Атмосферная авторская концепция</li>
+        <li>Карты и маршрут путешествия</li>
+        <li>Вёрстка от 19 разворотов</li>
+        <li>Описания мест и впечатлений</li>
+        <li>Мягкая обложка 300 г/м2, печать</li>
+        <li>2 раунда правок</li>
+      </ul>
+      <a href="https://t.me/by_memora" target="_blank" class="pricing-cta">Заказать</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="reviews-header reveal">
+    <p class="eyebrow">Отзывы</p>
+    <h2 class="sec-title">Что говорят <em>клиенты</em></h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">«Заказывала журнал маме на 60-летие. Результат превзошёл все ожидания — у мамы слезы были от счастья и от воспоминаний. Каждая деталь учтена, всё именно так, как я хотела и представляла себе.»</p>
+      <div class="review-author">
+        <div class="review-avatar">А</div>
+        <div>
+          <div class="review-name">Алина К.</div>
+          <div class="review-meta">Персональный журнал · Уфа</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal reveal-d1">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">«Travel Book о нашей поездке в Грузию получился как настоящая книга. Каждый разворот — отдельная история. Дизайн супер. Теперь она стоит в шкафу на видном месте. И мы периодически достаем её и ностальгируем»</p>
+      <div class="review-author">
+        <div class="review-avatar">М</div>
+        <div>
+          <div class="review-name">Михаил и Дарья</div>
+          <div class="review-meta">Travel Book · Уфа</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal reveal-d2">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">«Я просто отправила фото и написала, что хочу. Через неделю получила книгу — профессиональную, в твердой обложке, именно такую, какой я её представляла.»</p>
+      <div class="review-author">
+        <div class="review-avatar">Э</div>
+        <div>
+          <div class="review-name">Мария Р.</div>
+          <div class="review-meta">Фотокнига · Уфа</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reviews-note reveal">
+    💡 Реальные отзывы довольных клиентов - это не просто слова, а подтверждение живых эмоций.
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <p class="eyebrow">Начнём?</p>
+      <h2>Расскажите нам,<br>о чем ваша <em>история</em></h2>
+      <p class="contact-desc">Напишите в Telegram — это быстрее всего. Или оставьте заявку справа, и мы свяжемся в течение одного рабочего дня.</p>
+      <div class="contact-channels">
+        <a href="https://t.me/by_memora" target="_blank" class="contact-ch">
+          <div class="contact-ch-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          </div>
+          <div>
+            <span class="contact-ch-label">Telegram</span>
+            @by_memora
+          </div>
+        </a>
+        <a href="mailto:to-memora@mail.ru" class="contact-ch">
+          <div class="contact-ch-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <span class="contact-ch-label">Почта</span>
+            to-memora@mail.ru
+          </div>
+        </a>
+        <a href="#" class="contact-ch">
+          <div class="contact-ch-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <span class="contact-ch-label">Регион</span>
+            Уфа · Также доставка по всей России
+          </div>
+        </a>
+      </div>
+      <a href="https://t.me/by_memora" target="_blank" class="tg-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        Написать в Telegram
+      </a>
+    </div>
+
+    <div class="contact-form reveal reveal-d1">
+      <h3 class="form-title">Оставить заявку</h3>
+      <p class="form-sub">Свяжемся в течение одного рабочего дня</p>
+      <div id="formBody">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Имя *</label>
+            <input type="text" class="form-input" id="fname" placeholder="Ваше имя">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telegram или телефон *</label>
+            <input type="text" class="form-input" id="fcontact" placeholder="@username или +7...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Тип издания</label>
+          <select class="form-select form-input" id="ftype">
+            <option value="" disabled selected>Выберите</option>
+            <option>Персональный журнал</option>
+            <option>Фотокнига</option>
+            <option>Travel Book</option>
+            <option>Свадебный альбом</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Расскажите о вашей истории</label>
+          <textarea class="form-textarea" id="fmsg" placeholder="Какой повод, кому посвящается, к какому числу необходимо, примерное количество фото..."></textarea>
+        </div>
+        <button class="form-submit" id="submitBtn" onclick="submitForm()">Отправить заявку</button>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь на Обработку Персональных данных</p>
+      </div>
+      <div id="formSuccess">
+        <h3>✓ Заявка отправлена!</h3>
+        <p>Мы получили ваше сообщение и свяжемся с вами в Telegram или по телефону в течение дня.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="LOGO_brand_site.png" alt="MEMORA" class="footer-logo">
+      <div class="footer-tagline">Когда чувствуешь.</div>
+      <p class="footer-about">Дизайн-студия персональных журналов, фотокниг и Travel Book. Создаём уникальные издания с индивидуальным дизайном в Уфе и по всей России — под ключ.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Продукты</p>
+      <div class="footer-links">
+        <a href="#products">Персональный журнал</a>
+        <a href="#products">Фотокнига</a>
+        <a href="#products">Travel Book</a>
+        <a href="#products">Свадебный альбом</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Контакты</p>
+      <div class="footer-links">
+        <a href="https://t.me/by_memora" target="_blank">Telegram: @by_memora</a>
+        <a href="mailto:to-memora@mail.ru">to-memora@mail.ru</a>
+        <a href="#process">Как мы работаем</a>
+        <a href="#pricing">Цены</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 MEMORA · Уфа · Россия</p>
+    <p class="footer-copy">Персональные журналы и фотокниги на заказ</p>
+  </div>
+</footer>
+
+<script>
+// ── CUSTOM CURSOR ──
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function animCursor(){
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button,.product-card,.gallery-item,.pricing-card').forEach(el => {
+  el.addEventListener('mouseenter',()=>{ cur.style.width='6px'; cur.style.height='6px'; ring.style.width='52px'; ring.style.height='52px'; ring.style.opacity='.35'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.width='10px'; cur.style.height='10px'; ring.style.width='34px'; ring.style.height='34px'; ring.style.opacity='.5'; });
+});
+
+// ── NAV SCROLL ──
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  let cur2='';
+  document.querySelectorAll('section[id]').forEach(s => { if(window.scrollY >= s.offsetTop-100) cur2=s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => { a.style.color = a.getAttribute('href')==='#'+cur2 ? 'var(--gold)' : ''; });
+});
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal,.reveal-scale').forEach(el => observer.observe(el));
+
+// ── PROCESS LINE ANIMATION ──
+const lineObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) document.getElementById('processLineFill').style.width='76%'; });
+}, { threshold: 0.4 });
+const ps = document.getElementById('processSteps');
+if(ps) lineObserver.observe(ps);
+
+// ── VIDEO SLIDER ──
+(function(){
+  const track   = document.getElementById('vTrack');
+  const slides  = track ? track.querySelectorAll('.vslide') : [];
+  const dotsWrap= document.getElementById('vDots');
+  const btnPrev = document.getElementById('vPrev');
+  const btnNext = document.getElementById('vNext');
+  if(!track || !slides.length) return;
+
+  // visible count based on viewport
+  function visCount(){ return window.innerWidth <= 560 ? 1 : window.innerWidth <= 900 ? 2 : 3; }
+
+  let cur = 0;
+  const total = slides.length;
+
+  // build dots
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    const pages = Math.ceil(total / visCount());
+    for(let i=0;i<pages;i++){
+      const d = document.createElement('button');
+      d.className = 'vdot' + (i===Math.floor(cur/visCount())?' active':'');
+      d.addEventListener('click',()=>goTo(i * visCount()));
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function updateDots(){
+    const dots = dotsWrap.querySelectorAll('.vdot');
+    dots.forEach((d,i)=>d.classList.toggle('active', i===Math.floor(cur/visCount())));
+  }
+
+  function goTo(idx){
+    const vc = visCount();
+    const max = Math.max(0, total - vc);
+    cur = Math.max(0, Math.min(idx, max));
+    const slideW = slides[0].offsetWidth + 24; // gap=24
+    track.style.transform = `translateX(-${cur * slideW}px)`;
+    btnPrev.disabled = cur === 0;
+    btnNext.disabled = cur >= max;
+    updateDots();
+  }
+
+  btnPrev.addEventListener('click', ()=> goTo(cur - visCount()));
+  btnNext.addEventListener('click', ()=> goTo(cur + visCount()));
+
+  window.addEventListener('resize', ()=>{ buildDots(); goTo(0); });
+
+  buildDots();
+  goTo(0);
+})();
+
+// ── LIGHTBOX ──
+function openVideo(src){
+  const lb = document.getElementById('vLightbox');
+  const vid = document.getElementById('vLightboxVideo');
+  vid.src = src;
+  lb.classList.add('open');
+  vid.play();
+}
+function closeVideo(e){
+  if(e.target === document.getElementById('vLightbox')) closeLightbox();
+}
+function closeLightbox(){
+  const lb = document.getElementById('vLightbox');
+  const vid = document.getElementById('vLightboxVideo');
+  lb.classList.remove('open');
+  vid.pause(); vid.src='';
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+
+// ── FORM → TELEGRAM ──
+// ИНСТРУКЦИЯ:
+// 1. Откройте @BotFather в Telegram → /newbot → получите BOT_TOKEN
+// 2. Напишите своему боту любое сообщение
+// 3. Откройте: https://api.telegram.org/bot[BOT_TOKEN]/getUpdates — скопируйте "id" из "chat"
+// 4. Вставьте значения в строки ниже
+const BOT_TOKEN = 'ВСТАВЬТЕ_ВАШ_BOT_TOKEN'; // ← заменить
+const CHAT_ID   = 'ВСТАВЬТЕ_ВАШ_CHAT_ID';   // ← заменить
+
+async function submitForm() {
+  const name    = document.getElementById('fname').value.trim();
+  const contact = document.getElementById('fcontact').value.trim();
+  const type    = document.getElementById('ftype').value;
+  const msg     = document.getElementById('fmsg').value.trim();
+  if(!name || !contact){ alert('Пожалуйста, укажите имя и контакт для связи'); return; }
+  const btn = document.getElementById('submitBtn');
+  btn.textContent='Отправляем...'; btn.disabled=true;
+  const text = `🎨 <b>Новая заявка MEMORA</b>\n\n👤 <b>Имя:</b> ${name}\n📱 <b>Контакт:</b> ${contact}\n📖 <b>Тип:</b> ${type||'не указан'}\n💬 <b>Сообщение:</b> ${msg||'не указано'}`;
+  try {
+    if(BOT_TOKEN !== 'ВСТАВЬТЕ_ВАШ_BOT_TOKEN'){
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({chat_id:CHAT_ID, text, parse_mode:'HTML'})
+      });
+    }
+  } catch(e){}
+  document.getElementById('formBody').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+}
+</script>
+</body>
+</html>
