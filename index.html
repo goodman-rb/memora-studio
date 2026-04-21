@@ -407,11 +407,13 @@ nav.scrolled { box-shadow:0 4px 30px rgba(44,36,22,0.08); }
 
 @media(max-width:900px){
   .vslide { flex:0 0 calc((100% - 20px) / 2); }
-  .vslider-prev { left:-14px; }
-  .vslider-next { right:-14px; }
+  .vslider-prev { left:4px; }
+  .vslider-next { right:4px; }
 }
 @media(max-width:560px){
   .vslide { flex:0 0 85%; }
+  .vslider-prev { left:4px; }
+  .vslider-next { right:4px; }
 }
 
 /* ── PRICING ── */
@@ -562,10 +564,24 @@ footer { background:#140F0A; padding:56px 6% 28px; }
 
 /* ── MOBILE ── */
 @media(max-width:960px){
+  /* Базовый фикс: никакого горизонтального переполнения */
+  html, body { overflow-x:hidden; max-width:100%; }
+
+  /* Hero: показываем картинку под текстом */
   .hero { grid-template-columns:1fr; }
-  .hero-right { display:none; }
-  .hero-left { padding:60px 5%; }
-  .diff-inner,.contact-inner { grid-template-columns:1fr; gap:48px; }
+  .hero-left { padding:52px 5% 32px; }
+  .hero-right {
+    display:flex; justify-content:center;
+    padding:0 5% 56px; position:relative;
+  }
+  .hero-visual {
+    max-width:300px; aspect-ratio:3/4;
+    animation:none; /* отключаем float на мобильном */
+  }
+  .hero-badge { display:none; } /* убираем badge — он уходил за экран */
+
+  /* Общие сетки */
+  .diff-inner,.contact-inner { grid-template-columns:1fr; gap:40px; }
   .products-grid,.pricing-grid,.reviews-grid { grid-template-columns:1fr; }
   .process-steps { grid-template-columns:1fr 1fr; gap:36px; }
   .process-line,.process-line-fill { display:none; }
@@ -575,6 +591,58 @@ footer { background:#140F0A; padding:56px 6% 28px; }
   .footer-top { grid-template-columns:1fr; gap:32px; }
   .nav-links { display:none; }
   .form-row { grid-template-columns:1fr; }
+
+  /* Таблица сравнения: колонки друг под другом */
+  .diff-table { overflow-x:visible; }
+  .diff-row { grid-template-columns:1fr; }
+  .diff-col:first-child {
+    border-right:none;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .diff-col { padding:16px 18px; }
+  .diff-item { font-size:0.9rem; }
+  .diff-col-head { margin-bottom:10px; }
+}
+
+@media(max-width:560px){
+  .hero-visual { max-width:240px; }
+  .hero-h1 { font-size:clamp(36px,10vw,52px); }
+  .hero-diff { font-size:12px; padding:16px 16px 16px 18px; }
+
+  /* Стрелки слайдера не выходят за экран */
+  .vslider-prev { left:4px; }
+  .vslider-next { right:4px; }
+  .vslider-btn { width:38px; height:38px; }
+}
+
+/* ── FORM MODAL ── */
+.form-modal {
+  display:none; position:fixed; inset:0; z-index:500;
+  background:rgba(20,15,10,0.92); backdrop-filter:blur(14px);
+  align-items:center; justify-content:center; padding:20px;
+}
+.form-modal.open { display:flex; animation:fadeIn .25s ease; }
+.form-modal-inner {
+  background:linear-gradient(160deg, #2C2416 0%, #3D3220 100%);
+  border:1px solid rgba(196,151,58,0.22);
+  border-radius:6px; padding:44px 40px;
+  width:100%; max-width:580px; position:relative;
+  max-height:90vh; overflow-y:auto;
+}
+.form-modal-close {
+  position:absolute; top:16px; right:20px;
+  background:none; border:none; color:rgba(255,255,255,0.45);
+  font-size:26px; cursor:pointer; line-height:1;
+  transition:color .2s; padding:4px 8px;
+}
+.form-modal-close:hover { color:#fff; }
+.form-error {
+  font-family:'Montserrat',sans-serif; font-size:11px;
+  color:#e07878; display:block; margin-top:5px; min-height:16px;
+}
+@media(max-width:600px){
+  .form-modal-inner { padding:32px 22px; }
+  .form-modal { padding:12px; }
 }
 </style>
 </head>
@@ -595,7 +663,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
     <li><a href="#gallery">Портфолио</a></li>
     <li><a href="#contact">Контакты</a></li>
   </ul>
-  <a href="https://t.me/by_memora" target="_blank" class="nav-cta">Написать в Telegram</a>
+  <a href="#contact" onclick="openFormModal();return false;" class="nav-cta">Оставить заявку</a>
 </nav>
 
 <!-- HERO -->
@@ -614,7 +682,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
       <span>Вы получаете готовое издание с доставкой</span>
     </div>
     <div class="hero-actions">
-      <a href="https://t.me/by_memora" target="_blank" class="btn-primary">Написать в Telegram</a>
+      <a href="#contact" onclick="openFormModal();return false;" class="btn-primary">Оставить заявку</a>
       <a href="#products" class="btn-ghost">Смотреть работы</a>
     </div>
   </div>
@@ -889,7 +957,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
         <li>Твёрдая обложка, печать</li>
         <li>2 раунда правок</li>
       </ul>
-      <a href="https://t.me/by_memora" target="_blank" class="pricing-cta">Заказать</a>
+      <a href="#contact" onclick="openFormModal();return false;" class="pricing-cta">Оставить заявку</a>
     </div>
 
     <div class="pricing-card featured reveal reveal-d1">
@@ -905,7 +973,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
         <li>Глянцевая печать</li>
         <li>2 раунда правок</li>
       </ul>
-      <a href="https://t.me/by_memora" target="_blank" class="pricing-cta">Заказать</a>
+      <a href="#contact" onclick="openFormModal();return false;" class="pricing-cta">Оставить заявку</a>
     </div>
 
     <div class="pricing-card reveal reveal-d2">
@@ -920,7 +988,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
         <li>Мягкая обложка 300 г/м2, печать</li>
         <li>2 раунда правок</li>
       </ul>
-      <a href="https://t.me/by_memora" target="_blank" class="pricing-cta">Заказать</a>
+      <a href="#contact" onclick="openFormModal();return false;" class="pricing-cta">Оставить заявку</a>
     </div>
 
   </div>
@@ -989,6 +1057,15 @@ footer { background:#140F0A; padding:56px 6% 28px; }
             @by_memora
           </div>
         </a>
+        <a href="tel:+79930511417" class="contact-ch">
+          <div class="contact-ch-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15v1.92z"/></svg>
+          </div>
+          <div>
+            <span class="contact-ch-label">Телефон</span>
+            +7 (993) 051-14-17
+          </div>
+        </a>
         <a href="mailto:to-memora@mail.ru" class="contact-ch">
           <div class="contact-ch-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -1024,9 +1101,14 @@ footer { background:#140F0A; padding:56px 6% 28px; }
             <input type="text" class="form-input" id="fname" placeholder="Ваше имя">
           </div>
           <div class="form-group">
-            <label class="form-label">Telegram или телефон *</label>
-            <input type="text" class="form-input" id="fcontact" placeholder="@username или +7...">
+            <label class="form-label">Телефон *</label>
+            <input type="tel" class="form-input" id="fphone" placeholder="+7 (999) 000-00-00">
+            <span class="form-error" id="fphone-error"></span>
           </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Никнейм в Telegram <span style="opacity:.45;font-size:.82em;text-transform:none;letter-spacing:0">(необязательно)</span></label>
+          <input type="text" class="form-input" id="ftelegram" placeholder="@username">
         </div>
         <div class="form-group">
           <label class="form-label">Тип издания</label>
@@ -1044,15 +1126,62 @@ footer { background:#140F0A; padding:56px 6% 28px; }
           <textarea class="form-textarea" id="fmsg" placeholder="Какой повод, кому посвящается, к какому числу необходимо, примерное количество фото..."></textarea>
         </div>
         <button class="form-submit" id="submitBtn" onclick="submitForm()">Отправить заявку</button>
-        <p class="form-note">Нажимая кнопку, вы соглашаетесь на Обработку Персональных данных</p>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
       </div>
       <div id="formSuccess">
         <h3>✓ Заявка отправлена!</h3>
-        <p>Мы получили ваше сообщение и свяжемся с вами в Telegram или по телефону в течение дня.</p>
+        <p>Мы получили ваше сообщение и свяжемся с вами в течение одного рабочего дня.</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- FORM MODAL -->
+<div class="form-modal" id="formModal" onclick="closeFormModalOutside(event)">
+  <div class="form-modal-inner">
+    <button class="form-modal-close" onclick="closeFormModal()" aria-label="Закрыть">✕</button>
+    <h3 class="form-title">Оставить заявку</h3>
+    <p class="form-sub">Свяжемся в течение одного рабочего дня</p>
+    <div id="mformBody">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Имя *</label>
+          <input type="text" class="form-input" id="mfname" placeholder="Ваше имя">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Телефон *</label>
+          <input type="tel" class="form-input" id="mfphone" placeholder="+7 (999) 000-00-00">
+          <span class="form-error" id="mfphone-error"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Никнейм в Telegram <span style="opacity:.45;font-size:.82em;text-transform:none;letter-spacing:0">(необязательно)</span></label>
+        <input type="text" class="form-input" id="mftelegram" placeholder="@username">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Тип издания</label>
+        <select class="form-select form-input" id="mftype">
+          <option value="" disabled selected>Выберите</option>
+          <option>Персональный журнал</option>
+          <option>Фотокнига</option>
+          <option>Travel Book</option>
+          <option>Свадебный альбом</option>
+          <option>Другое</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Расскажите о вашей истории</label>
+        <textarea class="form-textarea" id="mfmsg" placeholder="Какой повод, кому посвящается, к какому числу необходимо, примерное количество фото..."></textarea>
+      </div>
+      <button class="form-submit" id="msubmitBtn" onclick="submitModalForm()">Отправить заявку</button>
+      <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+    </div>
+    <div id="mformSuccess" style="display:none;text-align:center;padding:40px 10px;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--cream);margin-bottom:12px;">✓ Заявка отправлена!</h3>
+      <p style="font-size:1rem;color:rgba(255,255,255,0.55);font-style:italic;">Мы получили ваше сообщение и свяжемся с вами в течение одного рабочего дня.</p>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1195,28 +1324,121 @@ function closeLightbox(){
   lb.classList.remove('open');
   vid.pause(); vid.src='';
 }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeLightbox(); closeFormModal(); } });
 
 // ── FORM → CLOUDFLARE WORKER → TELEGRAM ──
 const WORKER_URL = 'https://memora-form.arkadytut.workers.dev';
 
+// Валидация телефона: 11 цифр, начинается с 7 или 8
+function validatePhone(val) {
+  const digits = val.replace(/\D/g, '');
+  return digits.length === 11 && (digits[0] === '7' || digits[0] === '8');
+}
+
+// ── MODAL ──
+function openFormModal() {
+  document.getElementById('formModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  restoreFormData('m');
+}
+function closeFormModal() {
+  document.getElementById('formModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeFormModalOutside(e) {
+  if(e.target === document.getElementById('formModal')) closeFormModal();
+}
+
+// ── SESSIONSTORAGE: сохранение данных формы ──
+const FORM_FIELDS = ['fname','fphone','ftelegram','ftype','fmsg'];
+function saveFormData(prefix) {
+  FORM_FIELDS.forEach(f => {
+    const el = document.getElementById(prefix + f);
+    if(el) sessionStorage.setItem('memora_' + prefix + f, el.value);
+  });
+}
+function restoreFormData(prefix) {
+  FORM_FIELDS.forEach(f => {
+    const el = document.getElementById(prefix + f);
+    if(el) { const v = sessionStorage.getItem('memora_' + prefix + f); if(v) el.value = v; }
+  });
+}
+function clearFormStorage(prefix) {
+  FORM_FIELDS.forEach(f => sessionStorage.removeItem('memora_' + prefix + f));
+}
+
+// Навешиваем слушатели после загрузки DOM
+document.addEventListener('DOMContentLoaded', () => {
+  FORM_FIELDS.forEach(f => {
+    const el = document.getElementById(f);
+    if(el) el.addEventListener('input', () => saveFormData(''));
+    const mel = document.getElementById('m' + f);
+    if(mel) mel.addEventListener('input', () => saveFormData('m'));
+  });
+  restoreFormData('');
+  restoreFormData('m');
+});
+
+// ── ОТПРАВКА: контактная форма на странице ──
 async function submitForm() {
-  const name    = document.getElementById('fname').value.trim();
-  const contact = document.getElementById('fcontact').value.trim();
-  const type    = document.getElementById('ftype').value;
-  const msg     = document.getElementById('fmsg').value.trim();
-  if(!name || !contact){ alert('Пожалуйста, укажите имя и контакт для связи'); return; }
+  const name     = document.getElementById('fname').value.trim();
+  const phone    = document.getElementById('fphone').value.trim();
+  const telegram = document.getElementById('ftelegram').value.trim();
+  const type     = document.getElementById('ftype').value;
+  const msg      = document.getElementById('fmsg').value.trim();
+  const errEl    = document.getElementById('fphone-error');
+
+  if(!name){ alert('Пожалуйста, укажите ваше имя'); return; }
+  if(!validatePhone(phone)){
+    errEl.textContent = 'Введите номер: 11 цифр, начинается с +7 или 8';
+    document.getElementById('fphone').focus();
+    return;
+  }
+  errEl.textContent = '';
+
+  const contact = telegram ? phone + ' / TG: ' + telegram : phone;
   const btn = document.getElementById('submitBtn');
-  btn.textContent='Отправляем...'; btn.disabled=true;
+  btn.textContent = 'Отправляем...'; btn.disabled = true;
   try {
     await fetch(WORKER_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ name, contact, type, msg })
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name, contact, type, msg })
     });
   } catch(e){}
-  document.getElementById('formBody').style.display='none';
-  document.getElementById('formSuccess').style.display='block';
+  clearFormStorage('');
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+
+// ── ОТПРАВКА: модальная форма ──
+async function submitModalForm() {
+  const name     = document.getElementById('mfname').value.trim();
+  const phone    = document.getElementById('mfphone').value.trim();
+  const telegram = document.getElementById('mftelegram').value.trim();
+  const type     = document.getElementById('mftype').value;
+  const msg      = document.getElementById('mfmsg').value.trim();
+  const errEl    = document.getElementById('mfphone-error');
+
+  if(!name){ alert('Пожалуйста, укажите ваше имя'); return; }
+  if(!validatePhone(phone)){
+    errEl.textContent = 'Введите номер: 11 цифр, начинается с +7 или 8';
+    document.getElementById('mfphone').focus();
+    return;
+  }
+  errEl.textContent = '';
+
+  const contact = telegram ? phone + ' / TG: ' + telegram : phone;
+  const btn = document.getElementById('msubmitBtn');
+  btn.textContent = 'Отправляем...'; btn.disabled = true;
+  try {
+    await fetch(WORKER_URL, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name, contact, type, msg })
+    });
+  } catch(e){}
+  clearFormStorage('m');
+  document.getElementById('mformBody').style.display = 'none';
+  document.getElementById('mformSuccess').style.display = 'block';
 }
 </script>
 </body>
