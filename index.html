@@ -73,6 +73,8 @@ body { background:var(--cream); color:var(--text-dark); font-family:'Cormorant G
 /* ── CURSOR ── */
 .cursor { position:fixed; width:10px; height:10px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s; mix-blend-mode:multiply; }
 .cursor-ring { position:fixed; width:34px; height:34px; border:1.5px solid var(--gold); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s; opacity:.5; }
+/* Скрываем курсор на тач-устройствах */
+@media (pointer: coarse) { .cursor, .cursor-ring { display:none; } }
 
 /* ── NAV ── */
 nav {
@@ -537,6 +539,7 @@ nav.scrolled { box-shadow:0 4px 30px rgba(44,36,22,0.08); }
 .form-submit:disabled { opacity:.5; cursor:not-allowed; transform:none; }
 .form-note { font-size:12px; color:rgba(255,255,255,0.22); text-align:center; margin-top:12px; font-style:italic; }
 #formSuccess { display:none; text-align:center; padding:30px 10px; }
+#formSendError, #mformSendError { display:none; text-align:center; padding:16px; margin-top:16px; background:rgba(180,60,60,0.15); border:1px solid rgba(180,60,60,0.35); border-radius:3px; color:#e07878; font-family:'Montserrat',sans-serif; font-size:13px; line-height:1.6; }
 #formSuccess h3 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--cream); margin-bottom:12px; }
 #formSuccess p { font-size:1rem; color:rgba(255,255,255,0.55); font-style:italic; }
 
@@ -583,7 +586,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
   /* Общие сетки */
   .diff-inner,.contact-inner { grid-template-columns:1fr; gap:40px; }
   .products-grid,.pricing-grid,.reviews-grid { grid-template-columns:1fr; }
-  .process-steps { grid-template-columns:1fr 1fr; gap:36px; }
+  .process-steps { grid-template-columns:1fr; gap:32px; max-width:400px; margin:0 auto; }
   .process-line,.process-line-fill { display:none; }
   .gallery-grid { grid-template-columns:1fr 1fr; }
   .gallery-item { grid-column:auto!important; grid-row:auto!important; aspect-ratio:4/3!important; }
@@ -645,6 +648,16 @@ footer { background:#140F0A; padding:56px 6% 28px; }
   .form-modal { padding:12px; }
 }
 </style>
+<!-- Яндекс.Метрика — замените XXXXXXXX на ваш номер счётчика -->
+<script type="text/javascript">
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/108708135" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
 </head>
 <body>
 
@@ -688,7 +701,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
   </div>
   <div class="hero-right">
     <div class="hero-visual">
-      <img src="images/main_foto.png" alt="Персональный журнал MEMORA">
+      <img src="images/main_foto.webp" alt="Персональный журнал MEMORA">
       <div class="hero-visual-ph">
         <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
       </div>
@@ -754,7 +767,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
 
     <div class="product-card reveal">
       <div class="product-img">
-        <img src="images/journal.jpg" alt="Персональный журнал на заказ Уфа">
+        <img src="images/journal.webp" alt="Персональный журнал на заказ Уфа">
       </div>
       <div class="product-body">
         <div class="product-tag">Персональный журнал</div>
@@ -778,7 +791,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
 
     <div class="product-card reveal reveal-d2">
       <div class="product-img">
-       <img src="images/travel_book.png" alt="Travel Book на заказ Уфа">
+       <img src="images/travel_book.webp" alt="Travel Book на заказ Уфа">
       </div>
       <div class="product-body">
         <div class="product-tag">Travel Book</div>
@@ -834,25 +847,25 @@ footer { background:#140F0A; padding:56px 6% 28px; }
   </div>
   <div class="gallery-grid">
     <div class="gallery-item reveal">
-      <img src="images/work1.png" alt="Персональный журнал Уфа MEMORA">
+      <img src="images/work1.webp" alt="Персональный журнал Уфа MEMORA">
       <div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><p>Ваше фото работы</p></div>
       <div class="gallery-overlay"></div>
       <div class="gallery-label">Персональный журнал</div>
     </div>
     <div class="gallery-item reveal reveal-d1">
-      <img src="images/work2.png" alt="Фотокнига на заказ Уфа">
+      <img src="images/work2.webp" alt="Фотокнига на заказ Уфа">
       <div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><p>Ваше фото работы</p></div>
       <div class="gallery-overlay"></div>
       <div class="gallery-label">Фотокнига</div>
     </div>
     <div class="gallery-item reveal reveal-d2">
-      <img src="images/work3.png" alt="Travel Book на заказ Уфа">
+      <img src="images/work3.webp" alt="Travel Book на заказ Уфа">
       <div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><p>Ваше фото работы</p></div>
       <div class="gallery-overlay"></div>
       <div class="gallery-label">Travel Book</div>
     </div>
     <div class="gallery-item reveal reveal-d3">
-      <img src="images/work4.png" alt="Свадебный альбом Уфа">
+      <img src="images/work4.webp" alt="Свадебный альбом Уфа">
       <div class="gallery-ph"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><p>Ваше фото работы</p></div>
       <div class="gallery-overlay"></div>
       <div class="gallery-label">Свадебный альбом</div>
@@ -1127,6 +1140,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
         </div>
         <button class="form-submit" id="submitBtn" onclick="submitForm()">Отправить заявку</button>
         <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+        <div id="formSendError">⚠ Не удалось отправить заявку. Проверьте интернет-соединение и попробуйте ещё раз,<br>или напишите нам напрямую: <a href="https://t.me/by_memora" style="color:var(--gold-light)">@by_memora</a></div>
       </div>
       <div id="formSuccess">
         <h3>✓ Заявка отправлена!</h3>
@@ -1175,6 +1189,7 @@ footer { background:#140F0A; padding:56px 6% 28px; }
       </div>
       <button class="form-submit" id="msubmitBtn" onclick="submitModalForm()">Отправить заявку</button>
       <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+      <div id="mformSendError">⚠ Не удалось отправить заявку. Проверьте интернет-соединение и попробуйте ещё раз,<br>или напишите нам напрямую: <a href="https://t.me/by_memora" style="color:var(--gold-light)">@by_memora</a></div>
     </div>
     <div id="mformSuccess" style="display:none;text-align:center;padding:40px 10px;">
       <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--cream);margin-bottom:12px;">✓ Заявка отправлена!</h3>
@@ -1327,7 +1342,7 @@ function closeLightbox(){
 document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeLightbox(); closeFormModal(); } });
 
 // ── FORM → CLOUDFLARE WORKER → TELEGRAM ──
-const WORKER_URL = 'https://memora-form.arkadytut.workers.dev';
+const WORKER_URL = 'https://form.memora-studio.ru';
 
 // Валидация телефона: 11 цифр, начинается с 7 или 8
 function validatePhone(val) {
@@ -1387,6 +1402,7 @@ async function submitForm() {
   const type     = document.getElementById('ftype').value;
   const msg      = document.getElementById('fmsg').value.trim();
   const errEl    = document.getElementById('fphone-error');
+  const sendErr  = document.getElementById('formSendError');
 
   if(!name){ alert('Пожалуйста, укажите ваше имя'); return; }
   if(!validatePhone(phone)){
@@ -1395,19 +1411,24 @@ async function submitForm() {
     return;
   }
   errEl.textContent = '';
+  sendErr.style.display = 'none';
 
   const contact = telegram ? phone + ' / TG: ' + telegram : phone;
   const btn = document.getElementById('submitBtn');
   btn.textContent = 'Отправляем...'; btn.disabled = true;
   try {
-    await fetch(WORKER_URL, {
+    const res = await fetch(WORKER_URL, {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ name, contact, type, msg })
     });
-  } catch(e){}
-  clearFormStorage('');
-  document.getElementById('formBody').style.display = 'none';
-  document.getElementById('formSuccess').style.display = 'block';
+    if(!res.ok) throw new Error('server');
+    clearFormStorage('');
+    document.getElementById('formBody').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  } catch(e) {
+    sendErr.style.display = 'block';
+    btn.textContent = 'Отправить заявку'; btn.disabled = false;
+  }
 }
 
 // ── ОТПРАВКА: модальная форма ──
@@ -1418,6 +1439,7 @@ async function submitModalForm() {
   const type     = document.getElementById('mftype').value;
   const msg      = document.getElementById('mfmsg').value.trim();
   const errEl    = document.getElementById('mfphone-error');
+  const sendErr  = document.getElementById('mformSendError');
 
   if(!name){ alert('Пожалуйста, укажите ваше имя'); return; }
   if(!validatePhone(phone)){
@@ -1426,19 +1448,24 @@ async function submitModalForm() {
     return;
   }
   errEl.textContent = '';
+  sendErr.style.display = 'none';
 
   const contact = telegram ? phone + ' / TG: ' + telegram : phone;
   const btn = document.getElementById('msubmitBtn');
   btn.textContent = 'Отправляем...'; btn.disabled = true;
   try {
-    await fetch(WORKER_URL, {
+    const res = await fetch(WORKER_URL, {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ name, contact, type, msg })
     });
-  } catch(e){}
-  clearFormStorage('m');
-  document.getElementById('mformBody').style.display = 'none';
-  document.getElementById('mformSuccess').style.display = 'block';
+    if(!res.ok) throw new Error('server');
+    clearFormStorage('m');
+    document.getElementById('mformBody').style.display = 'none';
+    document.getElementById('mformSuccess').style.display = 'block';
+  } catch(e) {
+    sendErr.style.display = 'block';
+    btn.textContent = 'Отправить заявку'; btn.disabled = false;
+  }
 }
 </script>
 </body>
