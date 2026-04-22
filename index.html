@@ -17,6 +17,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"MEMORA","description":"Дизайн-студия персональных журналов, фотокниг и Travel Book на заказ под ключ","address":{"@type":"PostalAddress","addressLocality":"Уфа","addressCountry":"RU"},"email":"to-memora@mail.ru","url":"https://memora-studio.ru","priceRange":"от 4 900 ₽","serviceArea":"Уфа и вся Россия"}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -538,6 +539,30 @@ nav.scrolled { box-shadow:0 4px 30px rgba(44,36,22,0.08); }
 .form-submit:hover { opacity:.88; transform:translateY(-2px); }
 .form-submit:disabled { opacity:.5; cursor:not-allowed; transform:none; }
 .form-note { font-size:12px; color:rgba(255,255,255,0.22); text-align:center; margin-top:12px; font-style:italic; }
+.form-consent { display:flex; align-items:flex-start; gap:12px; margin-top:14px; }
+.form-consent input[type="checkbox"] {
+  appearance:none; -webkit-appearance:none;
+  width:18px; height:18px; min-width:18px;
+  border:1.5px solid rgba(255,255,255,0.25); border-radius:3px;
+  background:rgba(255,255,255,0.06); cursor:pointer;
+  margin-top:2px; position:relative; transition:border-color .25s, background .25s;
+}
+.form-consent input[type="checkbox"]:checked {
+  background:var(--gold); border-color:var(--gold);
+}
+.form-consent input[type="checkbox"]:checked::after {
+  content:''; position:absolute; left:4px; top:1px;
+  width:8px; height:5px;
+  border-left:2px solid #fff; border-bottom:2px solid #fff;
+  transform:rotate(-45deg);
+}
+.form-consent input[type="checkbox"].error { border-color:#e07878; }
+.form-consent-label {
+  font-family:'Montserrat',sans-serif; font-size:11px;
+  color:rgba(255,255,255,0.32); line-height:1.6; cursor:pointer;
+}
+.form-consent-label a { color:var(--gold-light); text-decoration:underline; text-underline-offset:2px; }
+.form-consent-label a:hover { color:var(--gold); }
 #formSuccess { display:none; text-align:center; padding:30px 10px; }
 #formSendError, #mformSendError { display:none; text-align:center; padding:16px; margin-top:16px; background:rgba(180,60,60,0.15); border:1px solid rgba(180,60,60,0.35); border-radius:3px; color:#e07878; font-family:'Montserrat',sans-serif; font-size:13px; line-height:1.6; }
 #formSuccess h3 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--cream); margin-bottom:12px; }
@@ -954,7 +979,7 @@ ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
   <div class="pricing-header reveal">
     <p class="eyebrow">Стоимость</p>
     <h2 class="sec-title">Цена под <em>ключ</em></h2>
-    <p class="pricing-note">Включает дизайн, вёрстку, все тексты, печать.<br>Доставка по России расчитывается отдельно</p>
+    <p class="pricing-note">Включает дизайн, вёрстку, все тексты, печать.<br>Доставка по России рассчитывается отдельно</p>
   </div>
   <div class="pricing-grid">
 
@@ -1139,10 +1164,16 @@ ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
           <textarea class="form-textarea" id="fmsg" placeholder="Какой повод, кому посвящается, к какому числу необходимо, примерное количество фото..."></textarea>
         </div>
         <button class="form-submit" id="submitBtn" onclick="submitForm()">Отправить заявку</button>
-        <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
-        <div id="formSendError">⚠ Не удалось отправить заявку. Проверьте интернет-соединение и попробуйте ещё раз,<br>или напишите нам напрямую: <a href="https://t.me/by_memora" style="color:var(--gold-light)">@by_memora</a></div>
+        <div class="form-consent">
+          <input type="checkbox" id="fconsent">
+          <label class="form-consent-label" for="fconsent">
+            Я соглашаюсь на обработку персональных данных в соответствии с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a> (152-ФЗ)
+          </label>
+        </div>
+        <span class="form-error" id="fconsent-error" style="display:none;margin-top:4px;">Необходимо дать согласие на обработку данных</span>
+        <div id="formSendError">⚠ Не удалось отправить заявку. Проверьте интернет-соединение и попробуйте ещё раз,<br>или напишите нам напрямую: <a href="https://t.me/by_memora" style="color:var(--gold-light)">@by_memora</a> или <a href="mailto:to-memora@mail.ru" style="color:var(--gold-light)">to-memora@mail.ru</a></div>
       </div>
-      <div id="formSuccess">
+      <div id="formSuccess" style="display:none">
         <h3>✓ Заявка отправлена!</h3>
         <p>Мы получили ваше сообщение и свяжемся с вами в течение одного рабочего дня.</p>
       </div>
@@ -1188,8 +1219,14 @@ ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
         <textarea class="form-textarea" id="mfmsg" placeholder="Какой повод, кому посвящается, к какому числу необходимо, примерное количество фото..."></textarea>
       </div>
       <button class="form-submit" id="msubmitBtn" onclick="submitModalForm()">Отправить заявку</button>
-      <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
-      <div id="mformSendError">⚠ Не удалось отправить заявку. Проверьте интернет-соединение и попробуйте ещё раз,<br>или напишите нам напрямую: <a href="https://t.me/by_memora" style="color:var(--gold-light)">@by_memora</a></div>
+      <div class="form-consent">
+        <input type="checkbox" id="mfconsent">
+        <label class="form-consent-label" for="mfconsent">
+          Я соглашаюсь на обработку персональных данных в соответствии с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a> (152-ФЗ)
+        </label>
+      </div>
+      <span class="form-error" id="mfconsent-error" style="display:none;margin-top:4px;">Необходимо дать согласие на обработку данных</span>
+      <div id="mformSendError">⚠ Не удалось отправить заявку. Проверьте интернет-соединение и попробуйте ещё раз,<br>или напишите нам напрямую: <a href="https://t.me/by_memora" style="color:var(--gold-light)">@by_memora</a> или <a href="mailto:to-memora@mail.ru" style="color:var(--gold-light)">to-memora@mail.ru</a></div>
     </div>
     <div id="mformSuccess" style="display:none;text-align:center;padding:40px 10px;">
       <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--cream);margin-bottom:12px;">✓ Заявка отправлена!</h3>
@@ -1342,7 +1379,7 @@ function closeLightbox(){
 document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeLightbox(); closeFormModal(); } });
 
 // ── FORM → CLOUDFLARE WORKER → TELEGRAM ──
-const WORKER_URL = 'https://memora-studio.ru/submit';
+const WORKER_URL = 'https://memora-form.arkadytut.workers.dev';
 
 // Валидация телефона: 11 цифр, начинается с 7 или 8
 function validatePhone(val) {
@@ -1413,6 +1450,17 @@ async function submitForm() {
   errEl.textContent = '';
   sendErr.style.display = 'none';
 
+  const consentEl  = document.getElementById('fconsent');
+  const consentErr = document.getElementById('fconsent-error');
+  if(!consentEl.checked){
+    consentEl.classList.add('error');
+    consentErr.style.display = 'block';
+    consentEl.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+  consentEl.classList.remove('error');
+  consentErr.style.display = 'none';
+
   const contact = telegram ? phone + ' / TG: ' + telegram : phone;
   const btn = document.getElementById('submitBtn');
   btn.textContent = 'Отправляем...'; btn.disabled = true;
@@ -1449,6 +1497,17 @@ async function submitModalForm() {
   }
   errEl.textContent = '';
   sendErr.style.display = 'none';
+
+  const consentEl  = document.getElementById('mfconsent');
+  const consentErr = document.getElementById('mfconsent-error');
+  if(!consentEl.checked){
+    consentEl.classList.add('error');
+    consentErr.style.display = 'block';
+    consentEl.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+  consentEl.classList.remove('error');
+  consentErr.style.display = 'none';
 
   const contact = telegram ? phone + ' / TG: ' + telegram : phone;
   const btn = document.getElementById('msubmitBtn');
