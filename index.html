@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MEMORA — Персональные журналы и фотокниги на заказ в Уфе</title>
-<meta name="description" content="Дизайн-студия MEMORA создаёт персональные журналы, фотокниги и Travel Book под ключ в Уфе. Индивидуальный дизайн с нуля, печать и доставка. От 4900 рублей.">
+<meta name="description" content="Дизайн-студия MEMORA создаёт персональные журналы, фотокниги и Travel Book под ключ в Уфе. Индивидуальный дизайн с нуля, печать и доставка. От 4500 рублей.">
 <meta name="keywords" content="фотокнига на заказ уфа, персональный журнал на заказ уфа, travel book на заказ уфа, фотокнига с индивидуальным дизайном уфа, журнал в подарок уфа, фотоальбом на заказ уфа, фотокнига под ключ уфа">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://memora-studio.ru/">
@@ -14,7 +14,7 @@
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="https://memora-studio.ru/">
 <meta property="og:image" content="https://memora-studio.ru/LOGO_brand_site.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"MEMORA","description":"Дизайн-студия персональных журналов, фотокниг и Travel Book на заказ под ключ","address":{"@type":"PostalAddress","addressLocality":"Уфа","addressCountry":"RU"},"email":"to-memora@mail.ru","url":"https://memora-studio.ru","priceRange":"от 4 900 ₽","serviceArea":"Уфа и вся Россия"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"MEMORA","description":"Дизайн-студия персональных журналов, фотокниг и Travel Book на заказ под ключ","address":{"@type":"PostalAddress","addressLocality":"Уфа","addressCountry":"RU"},"email":"to-memora@mail.ru","url":"https://memora-studio.ru","priceRange":"от 4 500 ₽","serviceArea":"Уфа и вся Россия"}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -986,7 +986,7 @@ ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
     <div class="pricing-card reveal">
       <div class="pricing-name">Фотокнига</div>
       <div class="pricing-price gold-text">9 200</div>
-      <div class="pricing-period">₽ · мягкая обложка · за 40 страниц книги</div>
+      <div class="pricing-period">₽ · твёрдая обложка · за 40 страниц книги</div>
       <ul class="pricing-features">
         <li>Индивидуальная концепция</li>
         <li>Подбор палитры и шрифтов</li>
@@ -1001,7 +1001,7 @@ ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
     <div class="pricing-card featured reveal reveal-d1">
       <div class="featured-badge">Популярный</div>
       <div class="pricing-name">Персональный журнал</div>
-      <div class="pricing-price">4 900</div>
+      <div class="pricing-price">4 500</div>
       <div class="pricing-period">₽ · за 20 страниц журнала · под ключ</div>
       <ul class="pricing-features">
         <li>Уникальная концепция журнала</li>
@@ -1072,9 +1072,6 @@ ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
         </div>
       </div>
     </div>
-  </div>
-  <div class="reviews-note reveal">
-    💡 Реальные отзывы довольных клиентов - это не просто слова, а подтверждение живых эмоций.
   </div>
 </section>
 
@@ -1163,6 +1160,11 @@ ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
           <label class="form-label">Расскажите о вашей истории</label>
           <textarea class="form-textarea" id="fmsg" placeholder="Какой повод, кому посвящается, к какому числу необходимо, примерное количество фото..."></textarea>
         </div>
+        <!-- Honeypot: скрытое поле для отсечения ботов. Людям не видно. -->
+        <div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+          <label for="fwebsite">Не заполняйте это поле</label>
+          <input type="text" name="website" id="fwebsite" tabindex="-1" autocomplete="off">
+        </div>
         <button class="form-submit" id="submitBtn" onclick="submitForm()">Отправить заявку</button>
         <div class="form-consent">
           <input type="checkbox" id="fconsent">
@@ -1217,6 +1219,11 @@ ym(108708135,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
       <div class="form-group">
         <label class="form-label">Расскажите о вашей истории</label>
         <textarea class="form-textarea" id="mfmsg" placeholder="Какой повод, кому посвящается, к какому числу необходимо, примерное количество фото..."></textarea>
+      </div>
+      <!-- Honeypot: скрытое поле для отсечения ботов. Людям не видно. -->
+      <div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+        <label for="mfwebsite">Не заполняйте это поле</label>
+        <input type="text" name="website" id="mfwebsite" tabindex="-1" autocomplete="off">
       </div>
       <button class="form-submit" id="msubmitBtn" onclick="submitModalForm()">Отправить заявку</button>
       <div class="form-consent">
@@ -1462,12 +1469,13 @@ async function submitForm() {
   consentErr.style.display = 'none';
 
   const contact = telegram ? phone + ' / TG: ' + telegram : phone;
+  const website = document.getElementById('fwebsite').value;
   const btn = document.getElementById('submitBtn');
   btn.textContent = 'Отправляем...'; btn.disabled = true;
   try {
     const res = await fetch(WORKER_URL, {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ name, contact, type, msg })
+      body: JSON.stringify({ name, contact, type, msg, website })
     });
     if(!res.ok) throw new Error('server');
     clearFormStorage('');
@@ -1510,12 +1518,13 @@ async function submitModalForm() {
   consentErr.style.display = 'none';
 
   const contact = telegram ? phone + ' / TG: ' + telegram : phone;
+  const website = document.getElementById('mfwebsite').value;
   const btn = document.getElementById('msubmitBtn');
   btn.textContent = 'Отправляем...'; btn.disabled = true;
   try {
     const res = await fetch(WORKER_URL, {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ name, contact, type, msg })
+      body: JSON.stringify({ name, contact, type, msg, website })
     });
     if(!res.ok) throw new Error('server');
     clearFormStorage('m');
